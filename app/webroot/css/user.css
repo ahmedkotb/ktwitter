@@ -1,0 +1,14 @@
+.user {
+    border: 1px solid #ccc;
+    border-width: 1px 0px 0px 0px;
+    clear: both;
+    width: 500px;
+}
+.user p {
+    float: left;
+    clear: left;
+}
+
+.followAction {
+    float: right;
+}
