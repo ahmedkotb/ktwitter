@@ -3,6 +3,7 @@
 <?=$html->link('back',array('controller'=>'tweets','action'=>'index'));?>
 <div style='float:right'>
     <?=$html->link('logout',array('controller'=>'users','action'=>'logout'));?>
+
 </div>
 
 <h2>ktwitters :</h2>

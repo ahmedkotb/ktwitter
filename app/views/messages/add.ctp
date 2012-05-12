@@ -3,7 +3,6 @@
 	<fieldset>
  		<legend><?php __('Add Message');?></legend>
 	<?php
-		echo $form->input('sender_id');
 		echo $form->input('recipient_id');
 		echo $form->input('title');
 		echo $form->input('body');

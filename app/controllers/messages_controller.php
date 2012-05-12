@@ -1,12 +1,12 @@
 <?php
 class MessagesController extends AppController {
-
 	var $name = 'Messages';
 	var $helpers = array('Html', 'Form');
 
 	function index() {
 		$this->Message->recursive = 0;
-		$this->set('messages', $this->paginate());
+		$this->paginate = array('conditions'=> array('Message.recipient_id'=>$this->Session->read('User.id')));
+		$this->set('messages', $this->paginate('Message'));
 	}
 
 	function view($id = null) {
@@ -14,11 +14,21 @@ class MessagesController extends AppController {
 			$this->Session->setFlash(__('Invalid Message', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('message', $this->Message->read(null, $id));
+		$message = $this->Message->read(null, $id);
+		$sender = ClassRegistry::init('User')->findById($message['Message']['sender_id']);
+
+		$this->set('titles', $message['Message']['title']);
+		$this->set('message', $message);
+		$this->set('sender', $sender['User']['name']);
+		$this->set('body', $message['Message']['body']);
 	}
 
 	function add() {
+
 		if (!empty($this->data)) {
+			$receiver = ClassRegistry::init('User')->findByUserName($this->data['Message']['recipient_id']);
+			$this->data['Message']['recipient_id'] = $receiver['User']['id'];
+			$this->data['Message']['sender_id'] = $this->Session->read('User.id');
 			$this->Message->create();
 			if ($this->Message->save($this->data)) {
 				$this->Session->setFlash(__('The Message has been saved', true));

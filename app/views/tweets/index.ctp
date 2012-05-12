@@ -9,6 +9,7 @@
         <?=$html->link('my profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
         |
         <?=$html->link('logout',array('controller'=>'users','action'=>'logout'));?>
+    <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
     
     </div>
     
