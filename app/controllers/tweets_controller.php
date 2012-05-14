@@ -61,7 +61,8 @@ class TweetsController extends AppController {
     	
     	//get extra info
     	//number of tweets , followers , following
-    	$tweetsNum = $this->Tweet->query("SELECT count(id) FROM tweets where user_id = $id");
+    	$tweetsNum =
+ $this->Tweet->query("SELECT count(id) FROM tweets where user_id = $id");
     	$tweetsNum = $tweetsNum[0][0]['count(id)'];
     	$followersNum = $this->Tweet->query("select count(id) from followers_users where follower_id=$id");
     	$followersNum = $followersNum[0][0]['count(id)'] -1; 

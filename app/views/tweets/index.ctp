@@ -10,7 +10,7 @@
         |
         <?=$html->link('logout',array('controller'=>'users','action'=>'logout'));?>
     <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
-    
+    <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'adfd'));?>
     </div>
     
 <div style='padding-left:10px;margin-left:200px;background-color:white;float:left'>
@@ -93,6 +93,9 @@
                     $n =str_replace(" ", "_", $tweet["users"]["name"]);
                     echo '<a onclick=document.getElementById(\'TweetContent\').value=\'@'.$n.':\'>reply</a>';
                 ?>
+            </div>
+            <div class='reply'>
+                <?php echo $html->link('like',array('controller'=>'favorites','action'=>'add_favorite',$tweet['tweets']['id'])) ?>
             </div>
             <?php } ?>
         </div>
