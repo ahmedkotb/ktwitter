@@ -21,7 +21,7 @@ class FavoritesController extends AppController {
 		$limit = 20;
 		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content ,tweets.id 
 from users join followers_users join tweets join favorites
-where users.id= follower_id And tweets.id = favorites.tweet_id  And tweets.user_id = follower_id AND followers_users.user_id=$id order by tweets.date DESC limit $limit";
+where users.id= follower_id And tweets.id = favorites.tweet_id  And favorites.user_id = $id And tweets.user_id = follower_id AND followers_users.user_id=$id order by tweets.date DESC limit $limit";
 
 		$tweets = $this->Tweets->Tweet->query($sql);
 		$last_tweet =$this->Tweets->Tweet->find('first',array('conditions'=>array('Tweet.user_id'=>$id),'order'=>'Tweet.date Desc','recursive'=>-1));
