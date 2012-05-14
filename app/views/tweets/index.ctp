@@ -10,7 +10,7 @@
         |
         <?=$html->link('logout',array('controller'=>'users','action'=>'logout'));?>
     <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
-    <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'adfd'));?>
+    <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'index'));?>
     </div>
     
 <div style='padding-left:10px;margin-left:200px;background-color:white;float:left'>
