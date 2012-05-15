@@ -1,5 +1,18 @@
+<div style='float:right'>
+    <?=$html->link('Home',array('controller'=>'tweets','action'=>'index'));?>
+    |
+    <?=$html->link('Profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
+    |
+    <?=$html->link('Inbox',array('controller'=>'messages','action'=>'index'));?>
+    |
+    <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'index'));?>
+    |
+    <?=$html->link('Logout',array('controller'=>'users','action'=>'logout'));?>
+</div>
+
 <div class="messages index">
 <h2><?php __('Messages');?></h2>
+
 <p>
 <?php
 echo $paginator->counter(array(

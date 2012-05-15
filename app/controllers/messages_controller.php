@@ -4,12 +4,14 @@ class MessagesController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function index() {
+        $this->set('user_id',$this->Session->read('User.id'));
 		$this->Message->recursive = 0;
 		$this->paginate = array('conditions'=> array('Message.recipient_id'=>$this->Session->read('User.id')));
 		$this->set('messages', $this->paginate('Message'));
 	}
 
 	function view($id = null) {
+        $this->set('user_id',$this->Session->read('User.id'));
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid Message', true));
 			$this->redirect(array('action' => 'index'));

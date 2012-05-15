@@ -1,6 +1,18 @@
 <?=$html->css('tweet',null,null);?>
 <?=$javascript->link(array('updatetweets'));?>
     
+<div style='float:right'>
+    <?=$html->link('Home',array('controller'=>'tweets','action'=>'index'));?>
+    |
+    <?=$html->link('Profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
+    |
+    <?=$html->link('Inbox',array('controller'=>'messages','action'=>'index'));?>
+    |
+    <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'index'));?>
+    |
+    <?=$html->link('Logout',array('controller'=>'users','action'=>'logout'));?>
+</div>
+
 <div style='padding-left:10px;margin-left:200px;background-color:white;float:left'>
 
 <h2>Favorite Ktweets</h2>

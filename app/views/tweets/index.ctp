@@ -16,7 +16,7 @@
         |
         <?=$html->link('Profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
         |
-        <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
+        <?=$html->link('Inbox',array('controller'=>'messages','action'=>'index'));?>
         |
         <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'index'));?>
         |
