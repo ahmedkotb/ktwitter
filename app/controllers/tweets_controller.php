@@ -43,7 +43,7 @@ class TweetsController extends AppController {
    		$tweets[$i]['user']['id'] = $id;
 		*/
 		$id = $this->Session->read('User.id');
-		$limit = 20;
+		$limit = 10;
 		//$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content ,tweets.id from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id=$id order by tweets.date DESC limit $limit";
         $sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content, tweets.id, favorites.user_id as fav from users join followers_users join tweets  left join favorites on (favorites.user_id = $id AND favorites.tweet_id = tweets.id) where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id=$id order by tweets.date DESC limit $limit";
 		$tweets = $this->Tweet->query($sql);
