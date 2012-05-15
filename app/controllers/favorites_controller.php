@@ -28,32 +28,21 @@ where users.id= follower_id And tweets.id = favorites.tweet_id  And favorites.us
 		$this->set('last_tweet',$last_tweet);
 		$this->set('data',$tweets);
 		$this->set('user_id',$id);
-		//last_date holds the most recent date
+		if (!empty($tweets)){
+            //last_date holds the most recent date
     		$this->set('last_date',$tweets[0]['tweets']['date']);
     		//oldest_tweet_date holds the oldest tweet date
     		$this->set('oldest_tweet_date',$tweets[count($tweets)-1]['tweets']['date']);
-    	
-            /*
-    		//get extra info
-    		//number of tweets , followers , following
-    		$tweetsNum =
- 			$this->Tweets->Tweet->query("SELECT count(id) FROM tweets where user_id = $id");
-    		$tweetsNum = $tweetsNum[0][0]['count(id)'];
-    		$followersNum = $this->Tweets->Tweet->query("select count(id) from followers_users where follower_id=$id");
-    		$followersNum = $followersNum[0][0]['count(id)'] -1; 
-    		$followingNum = $this->Tweets->Tweet->query("select count(id) from followers_users where user_id=$id");
-    		$followingNum = $followingNum[0][0]['count(id)'] -1;
-  	    	$this->set('tweetsNum',$tweetsNum);
- 	    	$this->set('followersNum',$followersNum);
-  	    	$this->set('followingNum',$followingNum);
-  	    	$this->Tweets->Tweet->User->suggestedFriends(8);
-             */
+    	}else{
+    	    $this->set('oldest_tweet_date',0);
+    	}
+
 	}
 
 	function add_favorite($id = null) {
 		$this->data['Favorite']['user_id'] = $this->Session->read('User.id');
 		$this->data['Favorite']['tweet_id'] = $id;
-                $this->Favorite->save($this->data);
+        $this->Favorite->save($this->data);
 		$this->redirect(array('controller'=>'tweets','action'=>'index'));
 	}
 }

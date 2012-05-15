@@ -3,13 +3,17 @@
     
 <div style='padding-left:10px;margin-left:200px;background-color:white;float:left'>
 
+<h2>Favourite Ktweets</h2>
 <div class= 'tweets' id = 'tweets'>
 
 <?php
     #person here refers to each of the people that user is following
+    if (count($data) == 0){
+        echo "you haven't selected any ktweet as a favourite yet";
+    }
     foreach($data as $tweet){
         echo '<br />';
-?>            
+?>
 
         <div class="tweet" >
             <p><b><?=$html->link($tweet["users"]["name"],'user/'.$tweet['users']['id']);?></b></p>
@@ -19,7 +23,7 @@
             ?>
             <?='&nbsp '.$tweet['tweets']['content'];?>
             <br />
-            
+
             <div class='del_link'>
             <?php 
                 if ($user_id == $tweet['users']['id'])
@@ -28,11 +32,11 @@
             </div>
             <?php
                 if ($user_id != $tweet['users']['id']){
-            ?>           
+            ?>
             <?php } ?>
         </div>
 
-<?        
+<?
     }
 ?>
 </div> <!--end of tweets div-->

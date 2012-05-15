@@ -58,7 +58,7 @@ class TweetsController extends AppController {
     	}else{
     	    $this->set('oldest_tweet_date',0);
     	}
-    	
+
     	//get extra info
     	//number of tweets , followers , following
     	$tweetsNum =
