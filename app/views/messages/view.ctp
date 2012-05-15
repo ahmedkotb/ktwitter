@@ -21,7 +21,5 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('Delete Message', true), array('action' => 'delete', $message['Message']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $message['Message']['id'])); ?> </li>
-		<li><?php echo $html->link(__('List Messages', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Message', true), array('action' => 'add')); ?> </li>
 	</ul>
 </div>

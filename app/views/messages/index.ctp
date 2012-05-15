@@ -8,9 +8,6 @@ echo $paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('sender_id');?></th>
-	<th><?php echo $paginator->sort('recipient_id');?></th>
 	<th><?php echo $paginator->sort('title');?></th>
 	<th><?php echo $paginator->sort('body');?></th>
 	<th class="actions"><?php __('Actions');?></th>
@@ -25,19 +22,14 @@ foreach ($messages as $message):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $message['Message']['id']; ?>
-		</td>
-		<td>
-			<?php echo $message['Message']['sender_id']; ?>
-		</td>
-		<td>
-			<?php echo $message['Message']['recipient_id']; ?>
-		</td>
-		<td>
+		<font color="black">
 			<?php echo $message['Message']['title']; ?>
+		</font>
 		</td>
 		<td>
+		<font color="black">
 			<?php echo $message['Message']['body']; ?>
+		</font>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $message['Message']['id'])); ?>
