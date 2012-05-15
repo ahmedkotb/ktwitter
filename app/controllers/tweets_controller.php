@@ -2,15 +2,15 @@
 class TweetsController extends AppController {
 	var $name = 'Tweets';
 	var $helpers = array('Time');
-    
+
     function beforeFilter(){ 
         $this->__validateLoginStatus();
     }
-    
+
     function __validateLoginStatus(){ 
        if($this->Session->check('User') == false){ 
           $this->Session->setFlash('you must be logged in to access this page');
-          $this->redirect(array('controller'=>'users','action'=>'login'));             
+          $this->redirect(array('controller'=>'users','action'=>'login'));
        }
     }
 
@@ -44,7 +44,8 @@ class TweetsController extends AppController {
 		*/
 		$id = $this->Session->read('User.id');
 		$limit = 20;
-		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content ,tweets.id from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id=$id order by tweets.date DESC limit $limit";
+		//$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content ,tweets.id from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id=$id order by tweets.date DESC limit $limit";
+        $sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content, tweets.id, favorites.user_id as fav from users join followers_users join tweets  left join favorites on (favorites.user_id = $id AND favorites.tweet_id = tweets.id) where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id=$id order by tweets.date DESC limit $limit";
 		$tweets = $this->Tweet->query($sql);
 		$last_tweet =$this->Tweet->find('first',array('conditions'=>array('Tweet.user_id'=>$id),'order'=>'Tweet.date Desc','recursive'=>-1));
 		$this->set('last_tweet',$last_tweet);
@@ -58,10 +59,11 @@ class TweetsController extends AppController {
     	}else{
     	    $this->set('oldest_tweet_date',0);
     	}
-    	
+
     	//get extra info
     	//number of tweets , followers , following
-    	$tweetsNum = $this->Tweet->query("SELECT count(id) FROM tweets where user_id = $id");
+    	$tweetsNum =
+ $this->Tweet->query("SELECT count(id) FROM tweets where user_id = $id");
     	$tweetsNum = $tweetsNum[0][0]['count(id)'];
     	$followersNum = $this->Tweet->query("select count(id) from followers_users where follower_id=$id");
     	$followersNum = $followersNum[0][0]['count(id)'] -1; 
@@ -81,20 +83,21 @@ class TweetsController extends AppController {
     	    $this->Tweet->User->query($sql);
 		}        
     }*/
-    
+
 	function view($id = null) {
 		if (!$id) {
 			$this->flash(__('Invalid Tweet', true), array('action' => 'index'));
 		}
 		$this->set('tweet', $this->Tweet->read(null, $id));
 	}
-        
+
     #returns the tweets after the specfied date
     #should be called from ajax
     function update($date=null){
 		$id = $this->Session->read('User.id');		
 		$date = date('Y-m-d H:i:s',$date);
-		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date > '$date' order by tweets.date DESC limit 100";
+		//$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content,tweets.id from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date > '$date' order by tweets.date DESC limit 100";
+        $sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content, tweets.id, favorites.user_id as fav from users join followers_users join tweets  left join favorites on (favorites.user_id = $id AND favorites.tweet_id = tweets.id) where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id=$id AND tweets.date > '$date' order by tweets.date DESC limit 100";
 		$tweets = $this->Tweet->query($sql);
 		$this->set('data',$tweets);
 		$this->set('user_id',$id);
@@ -104,14 +107,15 @@ class TweetsController extends AppController {
             $this->set('last_date',$date);
         $this->render('update','ajax');
     }
-    
+
     #returns the tweets before the specfied date
     #should be called from ajax
     function moretweets($date=null){
 		$id = $this->Session->read('User.id');		
 		$date = date('Y-m-d H:i:s',$date);
 		$limit = 10;
-		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date < '$date' order by tweets.date DESC limit $limit";
+		//$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content,tweets.id from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date < '$date' order by tweets.date DESC limit $limit";
+        $sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content, tweets.id, favorites.user_id as fav from users join followers_users join tweets  left join favorites on (favorites.user_id = $id AND favorites.tweet_id = tweets.id) where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id=$id AND tweets.date < '$date' order by tweets.date DESC limit $limit";
 		$tweets = $this->Tweet->query($sql);
 		$this->set('data',$tweets);
 		$this->set('user_id',$id);
@@ -121,25 +125,26 @@ class TweetsController extends AppController {
     	    $this->set('oldest_tweet_date',0);
         $this->render('moretweets','ajax');
     }
-    
+
     #given a user id it returns its page
-    function user($id = null){        
+    function user($id = null){
         $user = ClassRegistry::init('User')->find('first',array('conditions'=>array('User.id'=>$id),'recursive'=>-1));
         $tweets = $this->Tweet->find('all',array('conditions'=>array('Tweet.user_id'=>$id),'recursive'=>-1,'order'=>'Tweet.date Desc'));
         $this->set('data',$tweets);
         $this->set('user',$user);  
         $this->set('user_id',$this->Session->read('User.id'));
     }
+
     
     function search(){
 
      $tweets = $this->Tweet->query('select * from tweets where content like "%'.$this->data['Tweet']['content'].'%"');
      $this->set('tweets',$tweets);
-    }
+ }
     #add a new tweet
 	function add() {
 		if (!empty($this->data)) {
-			$this->Tweet->create();			           
+			$this->Tweet->create();
 			$this->data['Tweet']['user_id'] = $this->Session->read('User.id');
 			$this->data['Tweet']['date'] = date("Y-m-d G:i:s");
 			if ($this->Tweet->save($this->data)) {
@@ -149,7 +154,7 @@ class TweetsController extends AppController {
         		$this->data['Tweet']['users']['id'] = $this->Session->read('User.id');
         		$this->data['Tweet']['users']['email'] = $this->Session->read('User.email');
         		$this->data['Tweet']['id']=$this->Tweet->id;
-   		        $this->set('user_id',$this->Session->read('User.id'));  		        
+   		        $this->set('user_id',$this->Session->read('User.id'));
    		        $this->set('tweet',$this->data['Tweet']);
    		        $this->set('last_date',strtotime($this->data['Tweet']['date']));
    		        $this->render('mytweet','ajax');

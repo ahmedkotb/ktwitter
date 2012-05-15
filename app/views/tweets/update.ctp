@@ -28,6 +28,14 @@
                     echo '<a onclick=document.getElementById(\'TweetContent\').value=\'@'.$name.':\'>reply</a>';
                 ?>
             </div>
+            <?php
+                //debug($tweet);
+                if ($tweet["favorites"]["fav"] == ""){
+                    echo $html->link('favorite',array('controller'=>'favorites','action'=>'add',$tweet['tweets']['id']),array('class'=>'like'));
+                }else{
+                    echo $html->link('un-favorite',array('controller'=>'favorites','action'=>'remove',$tweet['tweets']['id']),array('class'=>'unlike'));
+                }
+            ?>
         </div>
 
 <?        

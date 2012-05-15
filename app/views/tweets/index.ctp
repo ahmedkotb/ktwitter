@@ -10,11 +10,13 @@
   <input type="submit" value="Search Tweets"/>
 </form>
     <div style='float:right'>
-        <?=$html->link('my profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
+        <?=$html->link('Profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
         |
-        <?=$html->link('logout',array('controller'=>'users','action'=>'logout'));?>
-    <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
-    
+        <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
+        |
+        <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'index'));?>
+        |
+        <?=$html->link('Logout',array('controller'=>'users','action'=>'logout'));?>
     </div>
     
 <div style='padding-left:10px;margin-left:200px;background-color:white;float:left'>
@@ -98,10 +100,18 @@
                     echo '<a onclick=document.getElementById(\'TweetContent\').value=\'@'.$n.':\'>reply</a>';
                 ?>
             </div>
-            <?php } ?>
+            <?php
+                //debug($tweet);
+                if ($tweet["favorites"]["fav"] == ""){
+                    echo $html->link('favorite',array('controller'=>'favorites','action'=>'add',$tweet['tweets']['id']),array('class'=>'like'));
+                }else{
+                    echo $html->link('un-favorite',array('controller'=>'favorites','action'=>'remove',$tweet['tweets']['id']),array('class'=>'unlike'));
+                }
+            ?>
         </div>
+        <?php } ?>
 
-<?        
+<?
     }
 ?>
 </div> <!--end of tweets div-->

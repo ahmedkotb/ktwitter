@@ -2,7 +2,7 @@
     border: 1px solid #ccc;
     border-width: 2px 0px 0px 0px;
     clear: both;
-    width: 500px;    
+    width: 500px;
 }
 .tweet p {
     float: left;
@@ -23,11 +23,31 @@
 }
 
 .TweetContent {
-    width: 500px;    
+    width: 500px;
 }
 
 .reply {
     float : right;
     clear : right;
-    cursor : pointer;   
+    cursor : pointer;
+}
+
+.like {
+    float : right;
+    clear : right;
+    cursor : pointer;
+}
+
+.unlike {
+    float : right;
+    clear : right;
+    cursor : pointer;
+	color: #ffa500;
+}
+
+.unlike:hover {
+    float : right;
+    clear : right;
+    cursor : pointer;
+	color: #ffa500;
 }
