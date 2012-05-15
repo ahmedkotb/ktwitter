@@ -29,15 +29,6 @@
             <?php
                 if ($user_id != $tweet['users']['id']){
             ?>           
-            <div class='reply'>
-                <?php
-                    $n =str_replace(" ", "_", $tweet["users"]["name"]);
-                    echo '<a onclick=document.getElementById(\'TweetContent\').value=\'@'.$n.':\'>reply</a>';
-                ?>
-            </div>
-            <div class='reply'>
-                <?php echo $html->link('like',array('controller'=>'favorites','action'=>'add_favorite',$tweet['tweets']['id'])) ?>
-            </div>
             <?php } ?>
         </div>
 
