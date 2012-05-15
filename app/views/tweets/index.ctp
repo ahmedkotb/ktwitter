@@ -6,11 +6,13 @@
 <?=$javascript->link(array('updatetweets'));?>
 
     <div style='float:right'>
-        <?=$html->link('my profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
+        <?=$html->link('Profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
         |
-        <?=$html->link('logout',array('controller'=>'users','action'=>'logout'));?>
-    <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
-    <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'index'));?>
+        <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
+        |
+        <?=$html->link('Favorites',array('controller'=>'favorites','action'=>'index'));?>
+        |
+        <?=$html->link('Logout',array('controller'=>'users','action'=>'logout'));?>
     </div>
     
 <div style='padding-left:10px;margin-left:200px;background-color:white;float:left'>
