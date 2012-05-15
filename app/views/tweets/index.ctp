@@ -7,7 +7,7 @@
 
     <?php
         echo $form->create(array('controller'=>'tweets','action' => 'search'));
-	    echo $form->input('content',array('label'=>'search','type'=>'text','style'=>'float:left'));
+	    echo $form->input('content',array('label'=>'search','type'=>'text','style'=>'float:left','id'=>'search_input'));
         echo $form->end('search');
     ?>
 
