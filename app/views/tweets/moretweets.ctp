@@ -27,7 +27,7 @@
                     echo '<a onclick=document.getElementById(\'TweetContent\').value=\'@'.$name.':\'>reply</a>';
                 ?>
             </div>
-            <div class='reply'>
+            <div class='like'>
                 <?php echo $html->link('like',array('controller'=>'favorites','action'=>'add_favorite',$tweet['tweets']['id'])) ?>
             </div>
         </div>
