@@ -3,7 +3,7 @@
     
 <div style='padding-left:10px;margin-left:200px;background-color:white;float:left'>
 
-<h2>Favourite Ktweets</h2>
+<h2>Favorite Ktweets</h2>
 <div class= 'tweets' id = 'tweets'>
 
 <?php
