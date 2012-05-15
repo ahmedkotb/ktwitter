@@ -33,6 +33,7 @@ where users.id= follower_id And tweets.id = favorites.tweet_id  And favorites.us
     		//oldest_tweet_date holds the oldest tweet date
     		$this->set('oldest_tweet_date',$tweets[count($tweets)-1]['tweets']['date']);
     	
+            /*
     		//get extra info
     		//number of tweets , followers , following
     		$tweetsNum =
@@ -46,7 +47,7 @@ where users.id= follower_id And tweets.id = favorites.tweet_id  And favorites.us
  	    	$this->set('followersNum',$followersNum);
   	    	$this->set('followingNum',$followingNum);
   	    	$this->Tweets->Tweet->User->suggestedFriends(8);
-
+             */
 	}
 
 	function add_favorite($id = null) {

@@ -95,7 +95,7 @@ class TweetsController extends AppController {
     function update($date=null){
 		$id = $this->Session->read('User.id');		
 		$date = date('Y-m-d H:i:s',$date);
-		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date > '$date' order by tweets.date DESC limit 100";
+		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content,tweets.id from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date > '$date' order by tweets.date DESC limit 100";
 		$tweets = $this->Tweet->query($sql);
 		$this->set('data',$tweets);
 		$this->set('user_id',$id);
@@ -112,7 +112,7 @@ class TweetsController extends AppController {
 		$id = $this->Session->read('User.id');		
 		$date = date('Y-m-d H:i:s',$date);
 		$limit = 10;
-		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date < '$date' order by tweets.date DESC limit $limit";
+		$sql = "SELECT users.id ,users.name,users.email, tweets.date, tweets.content,tweets.id from users join followers_users join tweets where users.id= follower_id  And tweets.user_id = follower_id AND followers_users.user_id='$id' AND tweets.date < '$date' order by tweets.date DESC limit $limit";
 		$tweets = $this->Tweet->query($sql);
 		$this->set('data',$tweets);
 		$this->set('user_id',$id);
