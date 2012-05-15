@@ -4,7 +4,11 @@
 <h2>Ktwitter</h2>
 <?=$html->css('tweet',null,null);?>
 <?=$javascript->link(array('updatetweets'));?>
+<form id="target" action="/ktwitter/tweets/search" method="post">
+<input type="text"  name="data[Tweet][content]">
 
+  <input type="submit" value="Search Tweets"/>
+</form>
     <div style='float:right'>
         <?=$html->link('my profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
         |
