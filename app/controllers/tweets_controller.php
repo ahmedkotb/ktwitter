@@ -135,12 +135,13 @@ class TweetsController extends AppController {
         $this->set('user_id',$this->Session->read('User.id'));
     }
 
-    
-    function search(){
 
-     $tweets = $this->Tweet->query('select * from tweets where content like "%'.$this->data['Tweet']['content'].'%"');
-     $this->set('tweets',$tweets);
- }
+    function search(){
+        $this->set('user_id',$this->Session->read('User.id'));
+        $tweets = $this->Tweet->query('select * from tweets join users on tweets.user_id = users.id and content like "%'.$this->data['Tweet']['content'].'%"');
+        $this->set('tweets',$tweets);
+    }
+
     #add a new tweet
 	function add() {
 		if (!empty($this->data)) {

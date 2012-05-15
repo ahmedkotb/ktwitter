@@ -4,12 +4,16 @@
 <h2>Ktwitter</h2>
 <?=$html->css('tweet',null,null);?>
 <?=$javascript->link(array('updatetweets'));?>
-<form id="target" action="/ktwitter/tweets/search" method="post">
-<input type="text"  name="data[Tweet][content]">
 
-  <input type="submit" value="Search Tweets"/>
-</form>
+    <?php
+        echo $form->create(array('controller'=>'tweets','action' => 'search'));
+	    echo $form->input('content',array('label'=>'search','type'=>'text','style'=>'float:left'));
+        echo $form->end('search');
+    ?>
+
     <div style='float:right'>
+        <?=$html->link('Home',array('controller'=>'tweets','action'=>'index'));?>
+        |
         <?=$html->link('Profile',array('controller'=>'users','action'=>'edit/'.$user_id));?>
         |
         <?=$html->link('Inbox',array('controller'=>'messages','action'=>'add'));?>
@@ -100,6 +104,7 @@
                     echo '<a onclick=document.getElementById(\'TweetContent\').value=\'@'.$n.':\'>reply</a>';
                 ?>
             </div>
+            <?php } ?>
             <?php
                 //debug($tweet);
                 if ($tweet["favorites"]["fav"] == ""){
@@ -109,7 +114,6 @@
                 }
             ?>
         </div>
-        <?php } ?>
 
 <?
     }
