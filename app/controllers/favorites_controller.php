@@ -10,7 +10,7 @@ class FavoritesController extends AppController {
 	var $Tweet;
 
 	function index() {
-	Classregistry::init('Tweet');
+        Classregistry::init('Tweet');
 		$this->Tweets =& new TweetsController; /*Loads the class*/
 		$this->Tweets->constructClasses(); /*Loads the model associations, components, etc. of the Pages controller*/
 
@@ -39,10 +39,22 @@ where users.id= follower_id And tweets.id = favorites.tweet_id  And favorites.us
 
 	}
 
-	function add_favorite($id = null) {
+	function add($id = null) {
 		$this->data['Favorite']['user_id'] = $this->Session->read('User.id');
 		$this->data['Favorite']['tweet_id'] = $id;
         $this->Favorite->save($this->data);
+		$this->redirect(array('controller'=>'tweets','action'=>'index'));
+	}
+
+	function remove($id = null) {
+		if (!$id)
+			return;
+        $user_id = $this->Session->read('User.id');
+        $sql = "delete from favorites where user_id = $user_id and tweet_id = $id";
+        Classregistry::init('Tweet');
+		$this->Tweets =& new TweetsController; /*Loads the class*/
+		$this->Tweets->constructClasses(); /*Loads the model associations, components, etc. of the Pages controller*/
+		$this->Tweets->Tweet->query($sql);
 		$this->redirect(array('controller'=>'tweets','action'=>'index'));
 	}
 }

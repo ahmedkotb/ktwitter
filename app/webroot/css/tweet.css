@@ -37,3 +37,17 @@
     clear : right;
     cursor : pointer;
 }
+
+.unlike {
+    float : right;
+    clear : right;
+    cursor : pointer;
+	color: #ffa500;
+}
+
+.unlike:hover {
+    float : right;
+    clear : right;
+    cursor : pointer;
+	color: #ffa500;
+}
